@@ -23,7 +23,8 @@ using System;
  * Date: May 2018
  * Last Update: 28.05.2020
  * */
-public class Dragon : MonoBehaviour {
+public class Dragon : MonoBehaviour
+{
 
     [Header("Drag:on Debug")]
     public bool LogTransformations = true;
@@ -59,6 +60,8 @@ public class Dragon : MonoBehaviour {
     public float DurationMSFanA = 570;
     public float DurationMSFanB = 500;
 
+    public GameObject gameObject_Ball;
+    private float time = 0.0f;
 
     /****************************************************
      *         DRAG:ON AUTO INITIALIZATION & UPDATE
@@ -83,7 +86,8 @@ public class Dragon : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         if (Simulation)
         {
             Debug.LogWarning("Simulating Drag:on");
@@ -93,10 +97,11 @@ public class Dragon : MonoBehaviour {
             Debug.Log("Connecting to Drag:on prototype");
             StartCommunication();
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         //simulate button on Drag:on with Vive Controller (trigger) or Z key
         //for this, add new "Joystick Axis" (10th axis) named "openvr-r-trigger-press" under Edit->Project Settings->Input (positive button z)
@@ -123,25 +128,25 @@ public class Dragon : MonoBehaviour {
                 UpdateButton(null);
             }
         }
-	}
+    }
 
     void OnApplicationQuit()
     {
-        if(!Simulation)
+        if (!Simulation)
             StopCommunication();
     }
 
     /****************************************************
      *         DRAG:ON INTERFACE FUNCTIONS
     *****************************************************/
-     
+
     //obfuscated transformation to target state
     public DragonTransformation TransformFansObfuscated(int PercentA, int PercentB)
     {
         int ObfuscationPercentA = UnityEngine.Random.Range(0, 100);
         int ObfuscationPercentB = UnityEngine.Random.Range(0, 100);
 
-        if(LogTransformations)
+        if (LogTransformations)
             Debug.Log("Transform Drag:on: --> Obfuscation (" + ObfuscationPercentA + ", " + ObfuscationPercentB + ") --> (" + PercentA + ", " + PercentB + ")");
 
         DragonTransformation transformation = new DragonTransformation();
@@ -315,16 +320,22 @@ public class Dragon : MonoBehaviour {
             catch (Exception e)
             {
                 dataString = null;
-                if(e.GetType() == typeof(System.IO.IOException))
+                if (e.GetType() == typeof(System.IO.IOException))
                 {
                     Debug.LogWarning("Connection to Drag:on lost!");
                     StopCommunication();
                     break;
                 }
             }
-            if(dataString != null)
+            if (dataString != null)
+            {
+                time += Time.deltaTime;
                 Debug.Log("Received: " + dataString);
 
+                //Activate Sphere (Ball GameObject)
+                gameObject_Ball.SetActive(true);
+
+            }
             UpdateButton(dataString);
             UpdateState(dataString);
 
@@ -338,18 +349,18 @@ public class Dragon : MonoBehaviour {
     //frame-wise update of the button state
     protected void UpdateButton(string msg)
     {
-        if(msg == null)
+        if (msg == null)
         {
             wasPressedThisFrame = false;
             wasReleasedThisFrame = false;
         }
-        if(msg == "BUTTON PRESSED")
+        if (msg == "BUTTON PRESSED")
         {
             wasPressedThisFrame = true;
             wasReleasedThisFrame = false;
             isPressed = true;
         }
-        if(msg == "BUTTON RELEASED")
+        if (msg == "BUTTON RELEASED")
         {
             wasPressedThisFrame = false;
             wasReleasedThisFrame = true;
@@ -360,16 +371,16 @@ public class Dragon : MonoBehaviour {
     //frame-wise update of the Drag:on state
     protected void UpdateState(string msg = null)
     {
-        if(msg != null)
+        if (msg != null)
         {
             string[] split = msg.Split(' ');
-            if(split.Length >= 4)
+            if (split.Length >= 4)
             {
-                if(split[0] == "FAN-A")
+                if (split[0] == "FAN-A")
                 {
                     StateFanA = int.Parse(split[1]);
                 }
-                if(split[2] == "FAN-B")
+                if (split[2] == "FAN-B")
                 {
                     StateFanB = int.Parse(split[3]);
                 }
@@ -428,7 +439,7 @@ public class Dragon : MonoBehaviour {
  * Author: André Zenner
  * Date: July 2018
  * */
-    public class DragonTransformation
+public class DragonTransformation
 {
     public float StartPercentA, StartPercentB;      //start state of the device
     public float EndPercentA, EndPercentB;          //final end state after transformation

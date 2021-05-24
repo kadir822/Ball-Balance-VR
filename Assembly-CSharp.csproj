@@ -56,14 +56,17 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BalanceFanNOT.cs" />
-    <Compile Include="Assets\Scripts\BalanceFan.cs" />
-    <Compile Include="Assets\Scripts\SteamVR_Render.cs" />
     <Compile Include="Assets\Scripts\SteamVR_ControllerManager.cs" />
+    <Compile Include="Assets\Scripts\SteamVR_Render.cs" />
+    <Compile Include="Assets\Scripts\BalanceFanNOT.cs" />
     <Compile Include="Assets\Scripts\SteamVR_Controller.cs" />
     <Compile Include="Assets\dragon\DragonTest.cs" />
     <Compile Include="Assets\dragon\DragonEditor.cs" />
     <Compile Include="Assets\dragon\Dragon.cs" />
+    <Compile Include="Assets\Scripts\BalanceFan.cs" />
+    <Compile Include="Assets\Scripts\DeleteBall.cs" />
+    <Compile Include="Assets\Scripts\activateBall.cs" />
+    <Compile Include="Assets\Scripts\EndTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -639,6 +642,9 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.XR.OpenVR">
+      <HintPath>Library\ScriptAssemblies\Unity.XR.OpenVR.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -672,6 +678,9 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>Library\ScriptAssemblies\UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.XR.OpenVR.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.XR.OpenVR.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.XR.OpenXR.TestHelpers">
       <HintPath>Library\ScriptAssemblies\Unity.XR.OpenXR.TestHelpers.dll</HintPath>
     </Reference>
@@ -702,21 +711,11 @@
     <Reference Include="Unity.XR.OpenXR.Features.RuntimeDebugger.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.XR.OpenXR.Features.RuntimeDebugger.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.XR.OpenVR">
-      <HintPath>Library\ScriptAssemblies\Unity.XR.OpenVR.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.XR.OpenVR.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.XR.OpenVR.Editor.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="SteamVR_Input_Editor.csproj">
       <Project>{9F02CC4A-9D11-E32C-2232-0C2CE1335A3C}</Project>
       <Name>SteamVR_Input_Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="SteamVR_Editor.csproj">
-      <Project>{16F3D98D-780F-345E-37C5-FFAED21DEC7C}</Project>
-      <Name>SteamVR_Editor</Name>
     </ProjectReference>
     <ProjectReference Include="SteamVR.csproj">
       <Project>{7016BA73-C538-F727-FD90-A46A00A561C8}</Project>
@@ -725,6 +724,14 @@
     <ProjectReference Include="SteamVR_Windows_EditorHelper.csproj">
       <Project>{AA851153-AB6E-605E-B10C-9D4FD678AC87}</Project>
       <Name>SteamVR_Windows_EditorHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="SteamVR_Editor.csproj">
+      <Project>{16F3D98D-780F-345E-37C5-FFAED21DEC7C}</Project>
+      <Name>SteamVR_Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SteamVR_Actions.csproj">
+      <Project>{ADC7B0ED-AAB5-DE7B-0E5C-B9F001B28051}</Project>
+      <Name>SteamVR_Actions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
